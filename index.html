@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHC Ponto</title>
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f0f2f5; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #005bb7; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <div class="loader"></div>
+        <p>A registar entrada e a abrir PHC...</p>
+    </div>
+
+    <script>
+        // Registo do Service Worker para permitir instalação
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        const SUPABASE_URL = 'https://fykpgzjwwvhjtodtmllb.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5a3Bnemp3d3ZoanRvZHRtbGxiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3MzQ4MzAsImV4cCI6MjA4NjMxMDgzMH0.RqMF1dIT2rYeFtmpS2T9dY83PVHhC3YPGbehQM2yATw';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function acao() {
+            try {
+                await supabase.from('picagens').insert([{ data_hora: new Date().toISOString() }]);
+            } finally {
+                window.location.href = "https://phc.hiperfrio.pt/geopontohiperfriotecnicotestehttps/marcaponto.aspx?ID=HiperSa&user=277&Lati=38.8556796&long=-9.1629054
+";
+            }
+        }
+        acao();
+    </script>
+</body>
+</html>
