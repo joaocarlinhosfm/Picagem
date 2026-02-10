@@ -29,14 +29,27 @@
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         async function acao() {
-            try {
-                await supabase.from('picagens').insert([{ data_hora: new Date().toISOString() }]);
-            } finally {
-                window.location.href = "https://phc.hiperfrio.pt/geopontohiperfriotecnicotestehttps/marcaponto.aspx?ID=HiperSa&user=277&Lati=38.8556796&long=-9.1629054
-";
-            }
+    try {
+        console.log("A registar...");
+        // O 'await' garante que o JS espera pela resposta da base de dados
+        const { error } = await supabase
+            .from('picagens')
+            .insert([{ data_hora: new Date().toISOString() }]);
+        
+        if (error) throw error;
+        console.log("Registo feito com sucesso!");
+
+    } catch (err) {
+        console.error("Erro ao registar:", err);
+        // Mesmo com erro, queremos que abras o PHC para não falhares o ponto!
+    } finally {
+        // Redireciona apenas após o sucesso ou erro
+        window.location.href = "https://TEU-LINK-PHC.com";
+    }
+}
         }
         acao();
     </script>
 </body>
+
 </html>
